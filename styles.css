@@ -61,7 +61,7 @@ input::-webkit-outer-spin-button, input::-webkit-inner-spin-button {
 
 .js-btn-result {
   display: block;
-  margin: 0 auto;
+  margin: 0 auto 30px auto;
   border: none;
   border-radius: 5px;
   background-color: rgb(244, 142, 0);
@@ -70,16 +70,27 @@ input::-webkit-outer-spin-button, input::-webkit-inner-spin-button {
   height: 45px;
   font-size: 14px;
   font-weight: 100;
+  transition: 0.2s;
+  cursor: pointer;
+  
+}
+
+.js-btn-result:hover {
+  background-color: rgb(219, 128, 0);
 }
 
 .js-output-block {
-  background-color: rgb(235, 235, 235);
-  border-radius: 5px;
-  margin: 30px 10%;
+  background-color: rgba(255, 255, 255, 0);
   padding: 15px;
+  margin: 0 10%;
+  position: relative;
+
+  max-height: 0px;
+  transition: 0.8s ease-out;
 }
 
 .js-output-result {
-  font-weight: 500;
+  color: rgb(0, 0, 0);
+  font-weight: 100;
   font-size: 25px;
 }
