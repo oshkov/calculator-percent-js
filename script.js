@@ -7,7 +7,6 @@ function calculate( {a, b} ) {
 }
 
 function deleteResult(num) {
- 
     // Выбираются блок и кнопка, чтобы удалить их
     let outputBlock = document.getElementsByClassName("js-output-block " + num)[0]
     let outputFlexBtn = document.getElementsByClassName("js-output-flex-button " + num)[0]
