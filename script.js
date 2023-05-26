@@ -12,15 +12,20 @@ function deleteResult(num) {
     let outputBlock = document.getElementsByClassName("js-output-block " + num)[0]
     let outputFlexBtn = document.getElementsByClassName("js-output-flex-button " + num)[0]
 
-    outputBlock.style = " padding: 0 0 0 700px" // Плавно изменяется паддинг
+    outputBlock.style = " padding: 0 0 0 700px; user-select: none" // Плавно изменяется паддинг
     outputFlexBtn.remove() // Сразу удаляется кнопка, после нажатия
 
     // Таймер для удаления всего блока (Сработает через 0.5 сек)
     setTimeout(() => {
+        try {
+            document.querySelectorAll(".js-output-result")[1].style= "color: black"
+            document.querySelectorAll(".js-output-a-b")[1].style= "color: black"
+        } catch (error) {
+            return
+        }
         outputBlock.remove()
     }, 500); 
 }
-
 
 let num = 0
 function result() {
@@ -28,7 +33,7 @@ function result() {
     const inputBNode = document.querySelector(".js-input-b")
 
     // Поиск блока в HTML куда будет добавляться новый блок с ответами
-    let Block = document.querySelector(".block")
+    let Block = document.querySelector(".results-block")
 
     // Вывод чисел из строк ввода и получение результата
     const a = Number(inputANode.value)
@@ -49,65 +54,38 @@ function result() {
 
     num++
 
-    // Создание блока с результатом
-    let html0 = document.createElement('div')
-    html0.className = "js-output-flex " + num
-
-    let html1 = document.createElement('h1')
-    html1.className = "js-output-result " + num
-    html1.textContent = result
-
-    let html2 = document.createElement('p')
-    html2.className = "js-output-a-b " + num
-    html2.textContent = a + ' → ' + b
-
-    html0.append(html1)
-    html0.append(html2)
-
-    let html4 = document.createElement('div')
-    html4.className = "js-output-flex-button " + num
-
-    let htmlBtn = document.createElement('button')
-    htmlBtn.className = "js-delete-button " + num
-    htmlBtn.setAttribute("onclick","deleteResult("+num+")");
-    
-    htmlBtn.textContent = '×'
-
-    html4.append(htmlBtn)
-
-    let html = document.createElement('div')
-    html.className = "js-output-block " + num
-
-    html.append(html0)
-    html.append(html4)
-
+    // // Создание блока с результатом
+    let htmlBlock = `<div class="js-output-block ${num}">
+    <div class="js-output-flex ${num}">
+        <h1 class="js-output-result ${num}">${result}</h1>
+        <p class="js-output-a-b ${num}">${a} → ${b}</p>
+    </div>
+    <div class="js-output-flex-button ${num}">
+        <button class="js-delete-button ${num}" onclick="deleteResult(${num})">×</button>
+    </div>
+    </div>`
 
     // Добавление блока с результатом в HTML
-    Block.insertBefore(html, document.querySelectorAll(".js-output-block")[0])
+    Block.insertAdjacentHTML('afterbegin', htmlBlock);
 
     let outputBlock = document.querySelector(".js-output-block")
     document.querySelectorAll(".js-output-block")[0].style= "max-height: "+ outputBlock.scrollHeight +"px; padding: 15px; overflow: visible" // Максимальная высота блока изменяется высоту блока
 
     // Проверка на наличие второго результата, при его наличии он становится прозрачнее
-    let nextResult = document.querySelectorAll(".js-output-result")[1]
+    nextResult = document.querySelectorAll(".js-output-result")[1]
     if (nextResult != null) {
-        nextResult.style= "color: rgba(0, 0, 0, 0.4)"
+        document.querySelectorAll(".js-output-result")[1].style= "color: rgba(0, 0, 0, 0.4)"
         document.querySelectorAll(".js-output-a-b")[1].style= "color: rgba(0, 0, 0, 0.2)"
     } else {
         return
     }
 }
 
-
-
-
 // Строчки ограничивающие ввод в input до 18 символов
-
 let inputA = document.querySelector('.js-input-a');
 inputA.oninput = function(){
   this.value = this.value.substr(0, 18);
 }
-
 let inputB = document.querySelector('.js-input-b');
 inputB.oninput = function(){
   this.value = this.value.substr(0, 18);

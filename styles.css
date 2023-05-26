@@ -109,6 +109,10 @@ input::-webkit-outer-spin-button, input::-webkit-inner-spin-button {
   transition: 0.5s;
 }
 
+.js-output-a-b {
+  transition: 0.5s;
+}
+
 .js-output-result:hover {
   color: rgb(0, 0, 0);
 }
