@@ -1,11 +1,13 @@
 // Функции
 
+// Фкункция с формулой подсчета
 function calculate( {a, b} ) {
     let result = null;
     result = (b-a)/a*100;
     return result;
 }
 
+// Функция удаления блока результата из истории
 function deleteResult(num) {
     // Выбираются блок и кнопка, чтобы удалить их
     let outputBlock = document.getElementsByClassName("js-output-block " + num)[0]
@@ -26,6 +28,7 @@ function deleteResult(num) {
     }, 500); 
 }
 
+// Функция вывода результата
 let num = 0
 function result() {
     const inputANode = document.querySelector(".js-input-a")
@@ -80,12 +83,9 @@ function result() {
     }
 }
 
-// Строчки ограничивающие ввод в input до 18 символов
-let inputA = document.querySelector('.js-input-a');
-inputA.oninput = function(){
-  this.value = this.value.substr(0, 18);
-}
-let inputB = document.querySelector('.js-input-b');
-inputB.oninput = function(){
-  this.value = this.value.substr(0, 18);
-}
+// Проверка на нажатие на Enter для вывода результата
+document.addEventListener("keyup", function(e) {
+    if (e.keyCode === 13) {
+        result()
+    }
+});
